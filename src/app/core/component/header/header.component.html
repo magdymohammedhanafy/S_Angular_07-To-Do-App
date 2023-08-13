@@ -1,0 +1,21 @@
+<mat-toolbar class="header" color="warn">
+  <div class="right">
+    <div>
+      <h1>TodoApp</h1>
+    </div>
+    <div>
+      <img [src]="userImage" alt="" />
+      <span>{{ userName }}</span>
+    </div>
+  </div>
+  <div class="left">
+    <a mat-button [class.d-none]="loginState" routerLink="/login">login</a>
+    <a
+      mat-button
+      [class.d-none]="!loginState"
+      (click)="logout()"
+      routerLink="/login"
+      >logout</a
+    >
+  </div>
+</mat-toolbar>

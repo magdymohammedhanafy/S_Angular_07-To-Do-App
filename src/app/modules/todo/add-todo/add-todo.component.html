@@ -1,0 +1,15 @@
+<form (ngSubmit)="addTodo()" #form="ngForm">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Task title</label>
+    <input
+      type="text"
+      class="form-control"
+      name="title"
+      id="title"
+      required="true"
+      [(ngModel)]="taskTitle"
+    />
+  </div>
+
+  <button type="submit" name="sub" class="sub">Add</button>
+</form>
