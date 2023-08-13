@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Users } from 'src/app/models/users';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   selectedUser: Users[] = [];
 
   isUserLogged: boolean = false;
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, private router: Router) {}
   ngOnInit(): void {
     this.usersService.getAllUsers().subscribe((users) => {
       this.availableUsers = users;
@@ -25,9 +26,14 @@ export class LoginComponent implements OnInit {
   login() {
     this.usersService.login(this.enteredUserPassword, this.selectedUserId);
     this.isUserLogged = this.usersService.isUserLogged;
+    if (this.isUserLogged == true) {
+      //+this.router.navigate(['']);
+      window.location.reload();
+    }
   }
   logout() {
     this.usersService.logOut();
     this.isUserLogged = this.usersService.isUserLogged;
+    window.location.reload();
   }
 }

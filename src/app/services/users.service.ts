@@ -1,17 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Users } from '../models/users';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class UsersService implements OnInit {
   private isLoggedSubject!: BehaviorSubject<boolean>;
   currentUserName: String = 'zucker';
   currentUserImage: String = 'https://robohash.org/zucker-ping.png';
   constructor(private httpClient: HttpClient) {
-    this.isLoggedSubject = new BehaviorSubject<boolean>(false);
+    if (localStorage.getItem('token')) {
+      this.isLoggedSubject = new BehaviorSubject<boolean>(true);
+    } else {
+      this.isLoggedSubject = new BehaviorSubject<boolean>(false);
+    }
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
   getAllUsers(): Observable<Users[]> {
@@ -24,7 +31,7 @@ export class UsersService {
       localStorage.setItem('token', userToken);
       localStorage.setItem('name', 'zucker');
       localStorage.setItem('image', 'https://robohash.org/zucker-ping.png');
-
+      this.isLoggedSubject.next(true);
       ////////////////////////////////////////
     } else if (userId == 2 && password == '123123') {
       let userToken = 'Basic ' + btoa('felon:123123');
@@ -46,7 +53,7 @@ export class UsersService {
   }
 
   logOut() {
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.isLoggedSubject.next(false);
   }
 

@@ -23,7 +23,7 @@ export class AddTodoComponent {
     this.todoService.addProduct(this.taskTitle).subscribe((todo) => {
       console.log(this.taskTitle);
       console.log(todo);
-      this.router.navigate(['']);
+      this.router.navigate(['todo']);
     });
   }
 }

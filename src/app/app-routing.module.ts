@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './core/component/header/header.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   {
-    path: '',
+    path: 'todo',
     loadChildren: () =>
       import('./modules/todo/todo.module').then((m) => m.TodoModule),
   },

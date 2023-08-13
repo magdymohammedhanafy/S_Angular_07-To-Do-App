@@ -9,7 +9,7 @@ const routes: Routes = [
     component: TodoListComponent,
   },
 
-  { path: 'addTodo', component: AddTodoComponent },
+  { path: 'add', component: AddTodoComponent },
 ];
 
 @NgModule({
