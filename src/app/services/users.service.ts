@@ -10,6 +10,7 @@ export class UsersService implements OnInit {
   private isLoggedSubject!: BehaviorSubject<boolean>;
   currentUserName: String = 'zucker';
   currentUserImage: String = 'https://robohash.org/zucker-ping.png';
+  userToken: any;
   constructor(private httpClient: HttpClient) {
     if (localStorage.getItem('token')) {
       this.isLoggedSubject = new BehaviorSubject<boolean>(true);
@@ -27,24 +28,24 @@ export class UsersService implements OnInit {
 
   login(password: String, userId: number) {
     if (userId == 1 && password == '123456') {
-      let userToken = 'Basic ' + btoa('zucker:123456');
-      localStorage.setItem('token', userToken);
+      this.userToken = 'Basic ' + btoa('zucker:123456');
+      localStorage.setItem('token', this.userToken);
       localStorage.setItem('name', 'zucker');
       localStorage.setItem('image', 'https://robohash.org/zucker-ping.png');
       this.isLoggedSubject.next(true);
       ////////////////////////////////////////
     } else if (userId == 2 && password == '123123') {
-      let userToken = 'Basic ' + btoa('felon:123123');
-      localStorage.setItem('token', userToken);
+      this.userToken = 'Basic ' + btoa('felon:123123');
+      localStorage.setItem('token', this.userToken);
       localStorage.setItem('name', 'felon');
-      localStorage.setItem('image', 'https://robohash.org/zucker-ping.png');
+      localStorage.setItem('image', 'https://robohash.org/felon-must.png');
       this.isLoggedSubject.next(true);
       //////////////////////////////////////////
     } else if (userId == 3 && password == 'secret') {
-      let userToken = 'Basic ' + btoa('robon:secret');
-      localStorage.setItem('token', userToken);
-      localStorage.setItem('robon', 'zucker');
-      localStorage.setItem('image', 'https://robohash.org/zucker-ping.png');
+      this.userToken = 'Basic ' + btoa('robon:secret');
+      localStorage.setItem('token', this.userToken);
+      localStorage.setItem('name', 'robon');
+      localStorage.setItem('image', 'https://robohash.org/robon-wood.png');
       this.isLoggedSubject.next(true);
       //////////////////////////////////////////
     } else {

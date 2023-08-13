@@ -1,20 +1,37 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { Todo } from '../models/todo';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoServiceService {
   httpOption: {};
-  constructor(private httpClient: HttpClient) {
+  userName: any;
+  pass: any;
+
+  constructor(
+    private httpClient: HttpClient,
+    private userService: UsersService
+  ) {
+    this.userName = localStorage.getItem('name');
+    if (this.userName == 'zucker') {
+      this.pass = 123456;
+    } else if (this.userName == 'felon') {
+      this.pass = 123123;
+    } else if (this.userName == 'robon') {
+      this.pass = 'secret';
+    }
+
     this.httpOption = {
       headers: new HttpHeaders({
-        Authorization: 'Basic ' + btoa('zucker:123456'),
+        Authorization: 'Basic ' + btoa(`${this.userName}:${this.pass}`),
       }),
     };
   }
+
   getAllTodoList(): Observable<Todo[]> {
     return this.httpClient.get<Todo[]>(
       'http://localhost:4000/todos',
